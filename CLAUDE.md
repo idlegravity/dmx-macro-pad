@@ -14,15 +14,15 @@ Deploying to the Pi:
 ```bash
 # Sync and restart (Pi reachable at dmx-macro-pad.local or 192.168.4.1)
 rsync -av --exclude=node_modules --exclude='.git' \
-  -e "sshpass -p dmx-macro-pad ssh -o StrictHostKeyChecking=no" \
-  ~/dev/dmx-macro-pad/ dmx-macro-pad@dmx-macro-pad.local:~/dmx-macro-pad/
+  -e "sshpass -p dmx512 ssh -o StrictHostKeyChecking=no" \
+  ~/dev/dmx-macro-pad/ dmx@dmx-macro-pad.local:~/dmx-macro-pad/
 
 # Restart the app on the Pi
-sshpass -p dmx-macro-pad ssh dmx-macro-pad@dmx-macro-pad.local \
+sshpass -p dmx512 ssh dmx@dmx-macro-pad.local \
   'sudo systemctl restart dmx-macro-pad'
 
 # Reload scenes without restart (SIGHUP)
-sshpass -p dmx-macro-pad ssh dmx-macro-pad@dmx-macro-pad.local \
+sshpass -p dmx512 ssh dmx@dmx-macro-pad.local \
   'sudo systemctl kill -s HUP dmx-macro-pad'
 ```
 
@@ -62,7 +62,7 @@ The app runs on a Raspberry Pi and sends DMX512 frames at 40 Hz over a USB-RS485
 
 ### Pi deployment details
 
-- Project is installed at `~/dmx-macro-pad` on the Pi (user: `dmxecute`)
+- Project is installed at `~/dmx-macro-pad` on the Pi (user: `dmx`, password: `dmx512`)
 - Service name: `dmx-macro-pad` (`/etc/systemd/system/dmx-macro-pad.service`)
 - WiFi hotspot managed by NetworkManager connection `dmx-macro-pad-hotspot`
 - The local repo at `~/dev/dmx-macro-pad` is the source of truth; `dist/` is committed and synced directly to avoid needing a build step on the Pi

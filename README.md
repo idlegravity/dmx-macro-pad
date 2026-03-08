@@ -2,6 +2,8 @@
 
 A headless Raspberry Pi app that sends DMX512 signals to lighting equipment via a USB-to-RS485 adapter, controlled by a mobile-optimized web UI served directly from the Pi. The Pi acts as its own WiFi hotspot — no router needed. Connect your phone, open a browser, and tap to control your lights.
 
+<img src="images/screenshot.png" alt="screenshot" width="300"/>
+
 ---
 
 ## Hardware Requirements

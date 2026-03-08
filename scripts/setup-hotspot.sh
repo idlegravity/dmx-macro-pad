@@ -15,7 +15,6 @@ set -euo pipefail
 
 SSID="${SSID:-DMX Macro Pad}"
 PASSPHRASE="${PASSPHRASE:-macropad}"      # min 8 chars required by WPA2
-INTERFACE="${INTERFACE:-wlan0}"
 STATIC_IP="${STATIC_IP:-192.168.4.1}"
 CON_NAME="${CON_NAME:-dmx-macro-pad-hotspot}"
 APP_PORT="${APP_PORT:-3000}"
@@ -32,6 +31,16 @@ REAL_USER="${SUDO_USER:-$(whoami)}"
 if ! command -v nmcli &>/dev/null; then
   echo "ERROR: nmcli not found. Install NetworkManager: apt install network-manager" >&2
   exit 1
+fi
+
+# ── Detect WiFi interface ──────────────────────────────────────────────────
+if [[ -z "${INTERFACE:-}" ]]; then
+  INTERFACE=$(nmcli -t -f DEVICE,TYPE device | awk -F: '$2=="wifi"{print $1; exit}')
+  if [[ -z "${INTERFACE}" ]]; then
+    echo "ERROR: No WiFi device found. Check 'nmcli device' for available interfaces." >&2
+    exit 1
+  fi
+  echo "==> Auto-detected WiFi interface: ${INTERFACE}"
 fi
 
 # ── Clean up legacy hostapd/dnsmasq/dhcpcd config if present ──────────────
