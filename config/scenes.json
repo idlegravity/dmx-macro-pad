@@ -1,0 +1,96 @@
+{
+  "groups": [
+    {
+      "id": "infinity",
+      "name": "Infinity",
+      "exclusive": true,
+      "channelStart": 1,
+      "scenes": [
+        {
+          "id": "infinity-sound",
+          "name": "Sound Activated",
+          "color": "#ffffff",
+          "channels": { "5": 255, "13": 255 }
+        },
+        {
+          "id": "infinity-auto",
+          "name": "Auto",
+          "color": "#ffffff",
+          "channels": { "5": 255, "13": 127 }
+        }
+      ]
+    },
+    {
+      "id": "laser",
+      "name": "Lasers",
+      "exclusive": true,
+      "channelStart": 30,
+      "scenes": [
+        {
+          "id": "laser-sound",
+          "name": "Sound Activated",
+          "color": "#00ffff",
+          "channels": { "1": 255, "2": 200 }
+        },
+        {
+          "id": "laser-auto",
+          "name": "Auto",
+          "color": "#00ffff",
+          "channels": { "1": 255, "2": 70 }
+        }
+      ]
+    },
+    {
+      "id": "spider",
+      "name": "Spider",
+      "exclusive": true,
+      "channelStart": 20,
+      "scenes": [
+        {
+          "id": "spider-sound",
+          "name": "Sound Activated",
+          "color": "#ffffff",
+          "channels": { "3": 255, "5": 250 }
+        },
+        {
+          "id": "spider-auto",
+          "name": "Auto",
+          "color": "#ffffff",
+          "channels": { "3": 255, "5": 240 }
+        }
+      ]
+    },
+    {
+      "id": "switches",
+      "name": "Switches",
+      "exclusive": false,
+      "channelStart": 15,
+      "scenes": [
+        {
+          "id": "switch-1",
+          "name": "Switch 1",
+          "color": "#8800ff",
+          "channels": { "1": 255 }
+        },
+        {
+          "id": "switch-2",
+          "name": "Switch 2",
+          "color": "#8800ff",
+          "channels": { "2": 255 }
+        },
+        {
+          "id": "switch-3",
+          "name": "Switch 3",
+          "color": "#8800ff",
+          "channels": { "3": 255 }
+        },
+        {
+          "id": "switch-4",
+          "name": "Switch 4",
+          "color": "#8800ff",
+          "channels": { "4": 255 }
+        }
+      ]
+    }
+  ]
+}

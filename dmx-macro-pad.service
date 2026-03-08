@@ -1,0 +1,18 @@
+# Reference only — install-service.sh generates this dynamically with correct paths.
+# To install: sudo bash scripts/install-service.sh
+
+[Unit]
+Description=DMX Macro Pad lighting controller
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /home/YOUR_USER/dmx-macro-pad/dist/index.js
+WorkingDirectory=/home/YOUR_USER/dmx-macro-pad
+Restart=always
+RestartSec=3
+User=YOUR_USER
+Environment=NODE_ENV=production
+Environment=PORT=3000
+
+[Install]
+WantedBy=multi-user.target

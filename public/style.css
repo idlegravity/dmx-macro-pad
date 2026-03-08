@@ -1,0 +1,246 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #1a1a1a;
+  --surface2: #252525;
+  --text: #f0f0f0;
+  --text-dim: #888;
+  --accent: #ffffff;
+  --blackout: #ff3333;
+  --active-ring: 3px solid #ffffff;
+  --radius: 16px;
+  --gap: 12px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #222;
+}
+
+h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+.status-dot.connected    { background: #22dd66; box-shadow: 0 0 6px #22dd66; }
+.status-dot.disconnected { background: #555; }
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding: var(--gap);
+  overflow-y: auto;
+}
+
+/* BLACKOUT button — always prominent */
+.blackout-btn {
+  width: 100%;
+  padding: 22px 16px;
+  background: #1a0000;
+  color: var(--blackout);
+  border: 2px solid var(--blackout);
+  border-radius: var(--radius);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  touch-action: manipulation;
+}
+.blackout-btn:active {
+  background: #2a0000;
+  transform: scale(0.98);
+}
+.blackout-btn.active {
+  background: var(--blackout);
+  color: #fff;
+}
+
+/* Scene grid — outer container, now just a flex column of groups */
+.scenes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.loading {
+  color: var(--text-dim);
+  text-align: center;
+  padding: 40px 0;
+  grid-column: 1 / -1;
+}
+
+.error {
+  color: var(--blackout);
+  text-align: center;
+  padding: 40px 0;
+  grid-column: 1 / -1;
+}
+
+/* Group */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid #333;
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.15s;
+}
+
+.group-header:active {
+  background: var(--surface2);
+}
+
+.group-chevron {
+  font-size: 1.2rem;
+  line-height: 1;
+  transform: rotate(90deg);
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.group.collapsed .group-chevron {
+  transform: rotate(0deg);
+}
+
+/* Collapse animation */
+.group-scenes {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.25s ease;
+  overflow: hidden;
+}
+
+.group.collapsed .group-scenes {
+  grid-template-rows: 0fr;
+}
+
+.group-scenes > .scenes-inner-grid {
+  min-height: 0; /* required for grid-template-rows collapse trick */
+}
+
+/* Inner scene button grid */
+.scenes-inner-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap);
+  padding-bottom: 2px; /* prevent clipping active border on last row */
+}
+
+@media (min-width: 500px) {
+  .scenes-inner-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Scene button */
+.scene-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 28px 12px;
+  background: var(--surface);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  touch-action: manipulation;
+  min-height: 100px;
+  text-align: center;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.scene-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--radius) - 2px);
+  opacity: 0.12;
+  background: var(--scene-color, transparent);
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.scene-btn .color-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--scene-color, #555);
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.scene-btn:active {
+  transform: scale(0.96);
+  background: var(--surface2);
+}
+
+.scene-btn.active {
+  border-color: var(--scene-color, #fff);
+  background: var(--surface2);
+}
+.scene-btn.active::before {
+  opacity: 0.25;
+}
+
+.scene-btn.active .color-dot {
+  box-shadow: 0 0 10px var(--scene-color, #fff);
+}

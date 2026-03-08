@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>DMX Macro Pad</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>DMX Macro Pad</h1>
+    <div id="connection-status" class="status-dot disconnected" title="Connection status"></div>
+  </header>
+
+  <main>
+    <button id="blackout-btn" class="blackout-btn">BLACKOUT</button>
+    <div id="scenes-grid" class="scenes-grid">
+      <p class="loading">Loading scenes...</p>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(chmod +x:*)",
+      "Bash(npm install:*)",
+      "Bash(ssh:*)",
+      "Bash(sshpass:*)",
+      "Bash(rsync:*)",
+      "Bash(npm run:*)",
+      "Bash(grep -E '\\\\.js$|\\\\.ts$|\\\\.json$')"
+    ]
+  }
+}

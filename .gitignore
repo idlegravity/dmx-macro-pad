@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# macOS
+.DS_Store
+
+# Environment
+.env
+.env.*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime
+*.pid
