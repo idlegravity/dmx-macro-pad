@@ -47,7 +47,7 @@ sudo apt install -y nodejs
 ### 2. Clone the project
 
 ```bash
-git clone <repo-url> ~/dmx-macro-pad
+git clone https://github.com/idlegravity/dmx-macro-pad.git ~/dmx-macro-pad
 cd ~/dmx-macro-pad
 ```
 
