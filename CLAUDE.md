@@ -12,18 +12,10 @@ npm start        # run compiled dist/index.js
 
 Deploying to the Pi:
 ```bash
-# Sync and restart (Pi reachable at dmx-macro-pad.local or 192.168.4.1)
-rsync -av --exclude=node_modules --exclude='.git' \
-  -e "sshpass -p dmx512 ssh -o StrictHostKeyChecking=no" \
-  ~/dev/dmx-macro-pad/ dmx@dmx-macro-pad.local:~/dmx-macro-pad/
-
-# Restart the app on the Pi
-sshpass -p dmx512 ssh dmx@dmx-macro-pad.local \
-  'sudo systemctl restart dmx-macro-pad'
-
-# Reload scenes without restart (SIGHUP)
-sshpass -p dmx512 ssh dmx@dmx-macro-pad.local \
-  'sudo systemctl kill -s HUP dmx-macro-pad'
+npm run deploy          # sync files + restart service
+npm run deploy:sync     # sync files only
+npm run deploy:restart  # restart service only
+npm run deploy:reload   # reload scenes without restarting (SIGHUP)
 ```
 
 ## Code Intelligence
