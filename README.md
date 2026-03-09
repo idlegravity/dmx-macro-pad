@@ -39,27 +39,23 @@ The app continuously transmits DMX512 frames at 40 Hz. Tapping a scene button in
 
 ## Installation
 
-### 1. Install Node.js
-
-```bash
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
-sudo apt install -y nodejs
-```
-
-### 2. Clone the project
+### 1. Clone the project
 
 ```bash
 git clone https://github.com/idlegravity/dmx-macro-pad.git ~/dmx-macro-pad
 cd ~/dmx-macro-pad
 ```
 
-### 3. Set up the WiFi hotspot
+### 2. Run the installer
 
 ```bash
-sudo bash scripts/setup-hotspot.sh
+sudo bash scripts/install.sh
 ```
 
-This uses NetworkManager to create a persistent WiFi access point that starts automatically on every boot.
+This single script:
+- Installs Node.js 22.x if not already present
+- Configures the WiFi hotspot via NetworkManager
+- Builds the app and registers a systemd service that starts on every boot
 
 **Default settings:**
 
@@ -73,18 +69,10 @@ This uses NetworkManager to create a persistent WiFi access point that starts au
 You can override any of these with environment variables:
 
 ```bash
-sudo SSID="My Lights" PASSPHRASE="mypassword" bash scripts/setup-hotspot.sh
+sudo SSID="My Lights" PASSPHRASE="mypassword" bash scripts/install.sh
 ```
 
-### 4. Install and enable the service
-
-```bash
-sudo bash scripts/install-service.sh
-```
-
-This builds the app, installs it to `~/dmx-macro-pad`, and registers a systemd service that starts automatically on every boot.
-
-### 5. Reboot
+### 3. Reboot
 
 ```bash
 sudo reboot
@@ -217,6 +205,17 @@ To build the TypeScript manually:
 npm run build    # compiles src/ → dist/
 npm start        # runs dist/index.js
 ```
+
+### Deploying to the Pi
+
+```bash
+npm run deploy          # sync files + restart service
+npm run deploy:sync     # sync files only (no restart)
+npm run deploy:restart  # restart service only
+npm run deploy:reload   # reload scenes without restarting (SIGHUP)
+```
+
+Requires `sshpass` installed locally (`brew install sshpass` / `apt install sshpass`). The Pi must be reachable at `dmx-macro-pad.local`.
 
 **Environment variables:**
 
